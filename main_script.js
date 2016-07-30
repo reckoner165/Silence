@@ -8,7 +8,7 @@
       };
 
 
-//       var cityCircle; 
+      var rectangle;
 
     function initMap() {
         // Create the map.
@@ -18,28 +18,44 @@
 	        mapTypeId: 'terrain'
 	    });
 
-        // Construct the circle for each value in citymap.
-        // Note: We scale the area of the circle based on the population.
-        // for (var city in citymap) {
-          // Add the circle for this city to the map.
-        //    	cityCircle = new google.maps.Circle({
-        //     strokeColor: '#FF0000',
-        //     strokeOpacity: 0.8,
-        //     strokeWeight: 2,
-        //     fillColor: '#FF0000',
-        //     fillOpacity: 0.35,
-        //     draggable: true,
-        //     map: map,
-        //     center: citymap.newyork.center,
-        //     radius: Math.sqrt(citymap.newyork.population) * 0.5,
-        //     editable: true
-        //   });
-        // // }
-        // console.log(cityCircle.center);
+      rectangle = new google.maps.Rectangle({
+        strokeColor: '#CC9999',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FFAAAA',
+        fillOpacity: 0.35,
+        map: map,
+        bounds: {
+          north: 40.728920,
+          south: 40.729720,
+          east: -73.996158,
+          west: -73.997158
+        },
+        visible: true,
+        draggable: true,
+        editable: true
+      });  
+
+      rectangle.addListener('bounds_changed', showNewRect);
+
+      }
+
+      
+      function showNewRect(event) {
+        var ne = rectangle.getBounds().getNorthEast();
+        var sw = rectangle.getBounds().getSouthWest();
+
+        // console.log('NE LAT' + ne.lat() + 'NE LONG' + ne.lng());
+        // console.log('SW LAT' + sw.lat() + 'SW LONG' + sw.lng());
+
+        var url = 'https://data.cityofnewyork.us/resource/fhrw-4uyv.json?$where=latitude > ' + sw.lat() + ' AND latitude < ' + ne.lat() + ' AND longitude < ' + sw.lng() + ' AND longitude > ' + ne.lng();
+  
+        setTimeout(AJAXcall(url),2000);
+
       }
       
-      var url = 'https://data.cityofnewyork.us/resource/fhrw-4uyv.json?$where=latitude > 40.729720 AND latitude < 40.729920 AND longitude < -73.997158';
-      
+      // console.log(ne.lat());
+     
       //FLAGS
 
       var loudTalking = 0;
@@ -52,28 +68,33 @@
       console.log('Music' + loudMusic);
       console.log('Traffic' + traffic);
 
-	}
+	 }
 
+   function AJAXcall(url) {
       $.get(url, function(data, status){
         $.each(data, function(i, entry) {
 
-        	if (entry.descriptor === 'Loud Talking') {
-        		loudTalking += 1;
+          if (entry.descriptor === 'Loud Talking') {
+            loudTalking += 1;
 
-        	} else if (entry.descriptor === 'Loud Music/Party') {
-        		loudMusic += 1;
+          } else if (entry.descriptor === 'Loud Music/Party') {
+            loudMusic += 1;
 
-        	} else if (entry.descriptor === 'Engine Idling') {
-        		traffic += 1;
+          } else if (entry.descriptor === 'Engine Idling') {
+            traffic += 1;
 
-        	} else if (entry.descriptor === 'Noise: Construction Before/After Houses (NM1)') {
-        		construction +=1 ;
-        	}
+          } else if (entry.descriptor === 'Noise: Construction Before/After Houses (NM1)') {
+            construction +=1 ;
+          }
 
         });
         if (status === 'success') {
 
-        	dispFlag();
+          setTimeout(dispFlag(),3000);
         }
       });
+
+   }
+
+
 
