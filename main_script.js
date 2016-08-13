@@ -127,7 +127,10 @@ function AJAXcall(url) {
       trafficGain = 20*Math.log10(traffic/total);
       // constructionGain = 
       
+<<<<<<< HEAD
       changeGain(musicGain,trafficGain, talkingGain);
+=======
+>>>>>>> db6222b44bba3233be87511824a2b07c526d68cc
   });  
 }
 
@@ -139,6 +142,7 @@ function initAudio() {
 
    sMusic = new Tone.Sampler("./assets/music.mp3", function() {
 
+<<<<<<< HEAD
     sMusic.triggerAttack(1);
     sMusic.volume.value = -15;
     sMusic.player.loop = true;
@@ -146,12 +150,23 @@ function initAudio() {
 
    // console.log(sMusic);
 
+=======
+    sMusic.triggerAttack(-1);
+    sMusic.volume.value = -15;
+    sMusic.loop.value = true;
+   }).toMaster();
+
+>>>>>>> db6222b44bba3233be87511824a2b07c526d68cc
    
    sTraffic = new Tone.Sampler("./assets/traffic.wav", function() {
 
     sTraffic.triggerAttack(-1);
     sTraffic.volume.value = -15;
+<<<<<<< HEAD
     sTraffic.player.loop = true;
+=======
+    sTraffic.loop.value = true;
+>>>>>>> db6222b44bba3233be87511824a2b07c526d68cc
    }).toMaster();
 
    
@@ -159,7 +174,11 @@ function initAudio() {
 
     sTalking.triggerAttack(-1);
     sTalking.volume.value = -15;
+<<<<<<< HEAD
     sTalking.player.loop = true;
+=======
+    sTalking.loop.value = true;
+>>>>>>> db6222b44bba3233be87511824a2b07c526d68cc
    }).toMaster(); 
 }
 
@@ -168,7 +187,11 @@ function changeGain(musicGain, trafficGain, talkingGain) {
 
   sMusic.volume.value = musicGain;
   sTraffic.volume.value = trafficGain;
+<<<<<<< HEAD
   sTalking.volume.value = talkingGain;
+=======
+  sTalking.volume.value = taling.Gain;
+>>>>>>> db6222b44bba3233be87511824a2b07c526d68cc
 
 
 }
