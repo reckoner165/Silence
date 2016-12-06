@@ -14,7 +14,7 @@ var citymap = {
 
 
 var rectangle;
-<<<<<<< HEAD
+
 
 //Audio Objects
 var sMusic;
