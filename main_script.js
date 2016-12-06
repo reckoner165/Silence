@@ -189,9 +189,7 @@ function showNewRect(event) {
       // console.log('Loud Talking' + 20*Math.log(loudTalking/total));
       // console.log('Music' + 20*Math.log10(loudMusic/total));
       // console.log('Traffic' + 20*Math.log10(traffic/total));
-
-
-  });  
+  
 }
 
    // AUDIO 
@@ -278,7 +276,6 @@ function initAudio() {
 
    sMusic = new Tone.Sampler("./assets/music.mp3", function() {
 
-<<<<<<< HEAD
     sMusic.triggerAttack(1);
     sMusic.volume.value = -15;
     sMusic.player.loop = true;
